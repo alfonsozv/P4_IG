@@ -1,5 +1,5 @@
 //**************************************************************************
-// Práctica 3 
+// Práctica 4
 //**************************************************************************
 
 #include "objetos_B3.h"
@@ -168,6 +168,120 @@ for (i=0;i<n_c;i++)
 }
 
 
+
+//*************************************************************************
+// clase colores difusos
+//*************************************************************************
+
+void _triangulos3D::colors_diffuse_flat(float kr, float kg, float kb, float lpx, float lpy, float lpz)
+{
+  int i, n_c;
+  _vertex3f dif_pto_luz;
+  float modulo, escalar;
+  n_c = caras.size();
+  colores_caras.resize(n_c);
+
+  for (i=0; i<n_c; i++){
+
+    dif_pto_luz.x = lpx - vertices[caras[i]._0].x;
+    dif_pto_luz.y = lpy - vertices[caras[i]._0].y;
+    dif_pto_luz.z = lpz - vertices[caras[i]._0].z;
+
+    modulo = sqrt(dif_pto_luz.x*dif_pto_luz.x + dif_pto_luz.y*dif_pto_luz.y + dif_pto_luz.z*dif_pto_luz.z);
+
+    dif_pto_luz.x /= modulo;
+    dif_pto_luz.y /= modulo;
+    dif_pto_luz.z /= modulo;
+
+    escalar = dif_pto_luz.x*normales_caras[i].x + dif_pto_luz.y*normales_caras[i].y + dif_pto_luz.z*normales_caras[i].z;
+
+    if (escalar < 0.0) escalar = 0;
+    colores_caras[i].r = kr*escalar;
+    colores_caras[i].g = kg*escalar;
+    colores_caras[i].b = kb*escalar;
+  }
+}
+
+//*************************************************************************
+// Calculo de normales de caras
+//*************************************************************************
+
+void _triangulos3D::calcular_normales_caras()
+{
+  int i, n_c;
+  _vertex3f va, vb;
+  float modulo;
+
+  n_c = caras.size();
+  normales_caras.resize(n_c);
+
+  for (i = 0; i < n_c; i++)
+  {
+    // dos vectores en sentido antihorario
+    va = vertices[caras[i]._1] - vertices[caras[i]._0];
+    vb = vertices[caras[i]._2] - vertices[caras[i]._0];
+
+    // producto vectorial
+    normales_caras[i].x = va.y * vb.z - va.z * vb.y;
+    normales_caras[i].y = va.z * vb.x - va.x * vb.z;
+    normales_caras[i].z = va.x * vb.y - va.y * vb.x;
+
+    // modulo
+    modulo = sqrt(normales_caras[i].x * normales_caras[i].x +
+                  normales_caras[i].y * normales_caras[i].y +
+                  normales_caras[i].z * normales_caras[i].z);
+
+    normales_caras[i].x /= modulo;
+    normales_caras[i].y /= modulo;
+    normales_caras[i].z /= modulo;
+  }
+}
+
+//*************************************************************************
+// Calculo de normales de vertices
+//*************************************************************************
+
+void _triangulos3D::calcular_normales_vertices()
+{
+  int i, n_c, n_v;
+  float modulo;
+
+  n_v = vertices.size();
+  n_c = caras.size();
+  normales_vertices.resize(n_v);
+
+  for (i = 0; i < n_v; i++)
+  {
+    normales_vertices[i].x = 0.0;
+    normales_vertices[i].y = 0.0;
+    normales_vertices[i].z = 0.0;
+  }
+
+  for (i = 0; i < n_c; i++)
+  {
+    normales_vertices[caras[i]._0] += normales_caras[i];
+    normales_vertices[caras[i]._1] += normales_caras[i];
+    normales_vertices[caras[i]._2] += normales_caras[i];
+  }
+
+  //normalización
+  for (i = 0; i < n_v; i++)
+  {
+    modulo = sqrt(normales_vertices[i].x * normales_vertices[i].x +
+                  normales_vertices[i].y * normales_vertices[i].y +
+                  normales_vertices[i].z * normales_vertices[i].z);
+
+    normales_vertices[i].x /= modulo;
+    normales_vertices[i].y /= modulo;
+    normales_vertices[i].z /= modulo;
+  }
+
+}
+
+
+
+
+
 //*************************************************************************
 // objetos o modelos
 //*************************************************************************
@@ -204,6 +318,8 @@ caras[9]._0=2;caras[9]._1=6;caras[9]._2=7;
 caras[10]._0=0;caras[10]._1=1;caras[10]._2=4;
 caras[11]._0=1;caras[11]._1=5;caras[11]._2=4; 
 
+// normales de las caras
+calcular_normales_caras();
 //colores de las caras
 colors_random();
 }
@@ -231,6 +347,9 @@ caras[2]._0=2;caras[2]._1=3;caras[2]._2=4;
 caras[3]._0=3;caras[3]._1=0;caras[3]._2=4;
 caras[4]._0=3;caras[4]._1=1;caras[4]._2=0;
 caras[5]._0=3;caras[5]._1=2;caras[5]._2=1;
+
+// normales de las caras
+calcular_normales_caras();
 
 //colores de las caras
 colors_random();
@@ -263,6 +382,9 @@ caras[4]._0=1;caras[4]._1=4;caras[4]._2=5;
 caras[5]._0=0;caras[5]._1=3;caras[5]._2=2; 
 caras[6]._0 = 0; caras[6]._1 = 1; caras[6]._2 = 5; // Cara frontal
 caras[7]._0 = 0; caras[7]._1 = 5; caras[7]._2 = 2; // Cara derecha
+
+// normales de las caras
+calcular_normales_caras();
 
 //colores de las caras
 colors_random();
@@ -312,8 +434,11 @@ for (i=0;i<n_car;i++)
    caras[i].z=car_ply[3*i+2];
   }
 
+// normales de las caras
+calcular_normales_caras();
+
 // colores
-colors_random();
+colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
 }
 
 
@@ -417,6 +542,8 @@ if (tapa_su==1)
     }
 }
 
+// normales de las caras
+calcular_normales_caras();
 //colores de las caras
 colors_random();
 }
@@ -460,7 +587,9 @@ for (i=0;i<num_aux;i++)
    caras[c]._2=i*2+1;    
    c=c+1;    
    }  
-   
+
+// normales de las caras
+calcular_normales_caras();   
 //colores de las caras
 colors_random();
 }
@@ -690,6 +819,9 @@ for (j=0;j<num-1;j++)
      caras[c]._2=i+(j+1)*num;
      c=c+1;
     }
+
+// normales de las caras
+calcular_normales_caras();
 //colores de las caras
 colors_chess(0.2,1.0,0.2,0.3,0.8,0.1);
 }
@@ -778,6 +910,8 @@ for (j=0;j<num;j++)
    }
   
 
+// normales de las caras
+calcular_normales_caras();
 //Aplicamos los colores con estilo ajedrez a las caras
 colors_chess(0.5, 0.5, 0.8, 0.5, 0.8, 0.5);
 }
@@ -818,6 +952,8 @@ ancho_s = 0.05;
 alto_s = 0.75;
 fondo_s = 0.05;
 
+// normales de las caras
+calcular_normales_caras();
 cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
 };
@@ -874,6 +1010,9 @@ _colitas::_colitas()
 ancho=0.7;
 alto=0.08;
 fondo=0.7;
+
+// normales de las caras
+calcular_normales_caras();
 cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 cubo_m.colors_chess(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 };
@@ -916,6 +1055,9 @@ _punta::_punta()
 ancho=0.3;
 alto=0.3;
 fondo=0.3;
+
+// normales de las caras
+calcular_normales_caras();
 conoTrun.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 };
 
@@ -952,6 +1094,8 @@ ancho_e=0.08;
 alto_e=0.08;
 fondo_e=0.08;
 
+// normales de las caras
+calcular_normales_caras();
 cubo.colors_chess(0.0,0.0,0.0,0.0,0.0,0.0);
 esfera.colors_chess(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
 };
@@ -993,6 +1137,8 @@ alto_p=0.085;
 fondo_p=0.02;
 radio_p=0.001;
 
+// normales de las caras
+calcular_normales_caras();
 rueda.colors_chess(0.2,0.2,0.2,0.0,0.0,0.0);
 cilindro.colors_chess(0.5,0.5,0.5,0.5,0.5,0.5);
 };
@@ -1051,6 +1197,8 @@ ancho=0.06;
 alto=0.15;
 fondo=0.08;
 
+// normales de las caras
+calcular_normales_caras();
 conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
 
 };

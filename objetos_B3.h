@@ -1,5 +1,5 @@
 //**************************************************************************
-// Práctica 2 
+// Práctica 4
 //**************************************************************************
 
 #include <vector>
@@ -44,10 +44,18 @@ void 	draw(_modo modo, float r, float g, float b, float grosor);
 /* asignación de colores */
 void 	colors_random();
 void 	colors_chess(float r1, float g1, float b1, float r2, float g2, float b2);
+void colors_diffuse_flat(float kr, float kg, float kb, float lpx, float lpy, float lpz);
+void colors_diffuse_gouraud(float kr, float kg, float kb, float lpx, float lpy, float lpz);
 
+/*calcular normales*/
+void calcular_normales_caras();
+void calcular_normales_vertices();
 
 vector<_vertex3i> caras;
 vector<_vertex3f> colores_caras;
+vector<_vertex3f> colores_vertices;
+vector<_vertex3f> normales_vertices;
+vector<_vertex3f> normales_caras;
 };
 
 //*************************************************************************
