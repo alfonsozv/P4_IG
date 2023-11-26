@@ -9,7 +9,16 @@
 
 
 const float AXIS_SIZE=5000;
-typedef enum{POINTS,EDGES,SOLID,SOLID_COLORS} _modo;
+typedef enum{
+       POINTS, 
+       EDGES, 
+       SOLID, 
+       SOLID_COLORS, 
+       SOLID_COLORS_GOURAUD, 
+       SOLID_PHONG_FLAT, 
+       SOLID_PHONG_GOURAUD
+} _modo;
+//No se puede hacer el suavizado de phong
 
 //*************************************************************************
 // clase punto
@@ -36,26 +45,38 @@ class _triangulos3D: public _puntos3D
 public:
 
 	_triangulos3D();
-void 	draw_aristas(float r, float g, float b, int grosor);
-void    draw_solido(float r, float g, float b);
-void 	draw_solido_colores();
-void 	draw(_modo modo, float r, float g, float b, float grosor);
+       void 	draw_aristas(float r, float g, float b, int grosor);
+       void   draw_solido(float r, float g, float b);
+       void 	draw_solido_colores();
+       void   draw_solido_colores_vertices();
+       void   draw_solido_brillo_plano();
+       void   draw_solido_brillo_suave();
+       void 	draw(_modo modo, float r, float g, float b, float grosor);
 
-/* asignación de colores */
-void 	colors_random();
-void 	colors_chess(float r1, float g1, float b1, float r2, float g2, float b2);
-void colors_diffuse_flat(float kr, float kg, float kb, float lpx, float lpy, float lpz);
-void colors_diffuse_gouraud(float kr, float kg, float kb, float lpx, float lpy, float lpz);
+       /* asignación de colores */
+       void 	colors_random();
+       void 	colors_chess(float r1, float g1, float b1, float r2, float g2, float b2);
+       void colors_diffuse_flat(float kr, float kg, float kb, float lpx, float lpy, float lpz);
+       void colors_diffuse_gouraud(float kr, float kg, float kb, float lpx, float lpy, float lpz);
 
-/*calcular normales*/
-void calcular_normales_caras();
-void calcular_normales_vertices();
+       /*calcular normales*/
+       void calcular_normales_caras();
+       void calcular_normales_vertices();
 
-vector<_vertex3i> caras;
-vector<_vertex3f> colores_caras;
-vector<_vertex3f> colores_vertices;
-vector<_vertex3f> normales_vertices;
-vector<_vertex3f> normales_caras;
+       vector<_vertex3i> caras;
+       vector<_vertex3f> colores_caras;
+       vector<_vertex3f> colores_vertices;
+       vector<_vertex3f> normales_vertices;
+       vector<_vertex3f> normales_caras;
+
+       int calculadas_normales_caras;
+
+       //material
+       _vertex4f ambiente;
+       _vertex4f difuso;
+       _vertex4f especular;
+
+       float brillo;
 };
 
 //*************************************************************************

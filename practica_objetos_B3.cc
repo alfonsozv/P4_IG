@@ -144,6 +144,26 @@ switch (t_objeto){
 
 }
 
+//**************************************************************************
+// Luces
+//***************************************************************************
+void luces(/*alfa*/){
+        GLfloat luz_ambiente[] = {0.2, 0.2, 0.2, 1.0},
+                luz_difusa[] = {1.0, 1.0, 1.0, 1.0},
+                luz_especular[] = {20, 20, 20, 1.0};
+
+        glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente);
+        glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
+        glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
+
+        // glPushMatrix();
+        //         glRotatef(alfa,0,1,0);
+        //         glLightfv(GL_LIGHT1, GL_POSITION, luz_difusa);
+        // glPopMatrix();
+        glDisable(GL_LIGHT0);
+        glEnable(GL_LIGHT1);
+}
+
 
 //**************************************************************************
 //
@@ -153,6 +173,7 @@ void draw(void)
 {
 clean_window();
 change_observer();
+luces();
 draw_axis();
 draw_objects();
 glutSwapBuffers();
@@ -192,20 +213,23 @@ void normal_key(unsigned char Tecla1,int x,int y)
 {
 switch (toupper(Tecla1)){
 	case 'Q':exit(0);
-	case '1':modo=POINTS;break;
-	case '2':modo=EDGES;break;
-	case '3':modo=SOLID;break;
-	case '4':modo=SOLID_COLORS;break;
+	case '1':modo=POINTS;break; // Bien
+	case '2':modo=EDGES;break; // Bien
+	case '3':modo=SOLID;break; // Bien
+	case '4':modo=SOLID_COLORS;break; // Ni compila
+        case '5':modo=SOLID_COLORS_GOURAUD;break; // Ni compila
+        case '6':modo=SOLID_PHONG_FLAT;break; // Ni compila
+        case '7':modo=SOLID_PHONG_GOURAUD;break; // Bien
         case 'P':t_objeto=PIRAMIDE;break;
         case 'C':t_objeto=CUBO;break;
         case 'M':t_objeto=CUBO_M;break;
         case 'O':t_objeto=OBJETO_PLY;break;	
-        case 'R':t_objeto=ROTACION;break;
+        case 'R':t_objeto=ROTACION;break; 
         case 'L':t_objeto=CILINDRO;break;
         case 'N':t_objeto=CONO;break;
         case 'T':t_objeto=CONOTRUN;break;
         case 'E':t_objeto=ESFERA;break;
-        case 'A':t_objeto=AVIONETA;break;
+        case 'A':t_objeto=AVIONETA;break; 
         case 'X':t_objeto=EXTRUSION;break;
         case 'J':t_objeto=OBJETILLO;break;
         case 'B':t_objeto=MONTANA;break;
