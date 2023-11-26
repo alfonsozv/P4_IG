@@ -259,7 +259,7 @@ void animacion(){
 
         switch (paso)
         {
-                
+              
         case 0:
         // Despegue: Gira las hélices hasta llegar a una velocidad determinada y despega
                 avioneta.giro_helice += x/6;
