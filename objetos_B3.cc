@@ -455,7 +455,7 @@ caras[11]._0=1;caras[11]._1=5;caras[11]._2=4;
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
 
@@ -490,7 +490,7 @@ caras[5]._0=3;caras[5]._1=2;caras[5]._2=1;
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
 
@@ -529,7 +529,7 @@ caras[7]._0 = 0; caras[7]._1 = 5; caras[7]._2 = 2; // Cara derecha
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
 //*************************************************************************
@@ -584,7 +584,7 @@ for (i=0;i<n_car;i++)
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
 
@@ -690,13 +690,16 @@ if (tapa_su==1)
 
   // normales de las caras
   calcular_normales_caras();
-  calcular_normales_vertices();
+//   if(tipo == 1){
+//  //Completar código para la esfera
+//   }  else 
+    calcular_normales_vertices();
 
   // colores de las caras
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 
 }
 
@@ -747,7 +750,7 @@ for (i=0;i<num_aux;i++)
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
 //************************************************************************
@@ -984,7 +987,7 @@ for (j=0;j<num-1;j++)
   colors_random();
   // colores
   colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 
 }
 
@@ -1076,8 +1079,8 @@ calcular_normales_caras();
 calcular_normales_vertices();
 //Aplicamos los colores con estilo ajedrez a las caras
 colors_chess(0.5, 0.5, 0.8, 0.5, 0.8, 0.5);
-// colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+colors_diffuse_flat(0.9, 0.9, 1.0, 0, 6, 6);
+colors_diffuse_gouraud(0.9, 0.9, 1.0, 20, 20, 20);
 }
 
 //************************************************************************
@@ -1090,6 +1093,9 @@ ancho=0.3;
 alto=1.1;
 fondo=0.3;
 cilindro.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+cilindro.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
+cilindro.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
+
 };
 
 void _cabina::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1120,8 +1126,8 @@ fondo_s = 0.05;
 calcular_normales_caras();
 calcular_normales_vertices();
 cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-// cubo.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// cubo.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 };
 
 
@@ -1180,10 +1186,14 @@ fondo=0.7;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+// cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 cubo_m.colors_chess(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-// cubo.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// cubo.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+
+// cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+// cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 
 };
 
@@ -1230,8 +1240,9 @@ fondo=0.3;
 calcular_normales_caras();
 calcular_normales_vertices();
 conoTrun.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-// conoTrun.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// conoTrun.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+
+conoTrun.colors_diffuse_flat(0.9, 0.2, 0.2, 0, -6, 6);
+conoTrun.colors_diffuse_gouraud(0.9, 0.2, 0.2, 20, 20,20);
 
 };
 
@@ -1273,11 +1284,11 @@ calcular_normales_vertices();
 cubo.colors_chess(0.0,0.0,0.0,0.0,0.0,0.0);
 esfera.colors_chess(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
 
-// cubo.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// cubo.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+cubo.colors_diffuse_flat(0.2, 0.2, 0.2, 0, 6, 6);
+cubo.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
-// // esfera.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// esfera.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+esfera.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+esfera.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 };
 
 void _helice::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1322,11 +1333,11 @@ calcular_normales_vertices();
 rueda.colors_chess(0.2,0.2,0.2,0.0,0.0,0.0);
 cilindro.colors_chess(0.5,0.5,0.5,0.5,0.5,0.5);
 
-// // rueda.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// rueda.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+rueda.colors_diffuse_flat(0.2, 0.2, 0.2, 0, 6, 6);
+rueda.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
-// // cilindro.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// cilindro.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+cilindro.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+cilindro.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 };
 
 void _sustentacion::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1388,8 +1399,8 @@ calcular_normales_caras();
 calcular_normales_vertices();
 conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
 
-// conoTrun.colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-// conoTrun.colors_diffuse_gouraud(0.8, 0.9, 0.2, 0, 6, 6);
+conoTrun.colors_diffuse_flat(0.0, 0.4, 0.0, 0, 6, 6);
+conoTrun.colors_diffuse_gouraud(0.0, 0.4, 0.0, 0, 6, 6);
 
 };
 

@@ -49,6 +49,7 @@ int pulsar = 0;
 float giro1 = 0.0;
 float giro2 = 0.0;
 float giro3 = 0.0;
+float alfa = 0.0;
 
 // _objeto_ply *ply;
 
@@ -147,21 +148,34 @@ switch (t_objeto){
 //**************************************************************************
 // Luces
 //***************************************************************************
-void luces(/*alfa*/){
+void luces(float alfa){
         GLfloat luz_ambiente[] = {0.2, 0.2, 0.2, 1.0},
                 luz_difusa[] = {1.0, 1.0, 1.0, 1.0},
-                luz_especular[] = {20, 20, 20, 1.0};
+                luz_especular[] = {20, 20, 20, 1.0},
+                luz_posicion[] = {10,10,10,10,10};
+        
+        GLfloat luz_ambiente2[] = {0.05, 0.05, 0.05, 1.0},
+                luz_difusa2[] = {0.0, 1.0, 0.0, 1.0},
+                luz_especular2[] = {0.0, 1.0, 0.0, 1.0},
+                luz_posicion2[] = {10,10,10,10,10}; 
 
         glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente);
         glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
         glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
+        glLightfv(GL_LIGHT1, GL_POSITION, luz_posicion);
 
-        // glPushMatrix();
-        //         glRotatef(alfa,0,1,0);
-        //         glLightfv(GL_LIGHT1, GL_POSITION, luz_difusa);
-        // glPopMatrix();
+        glLightfv(GL_LIGHT2, GL_AMBIENT, luz_ambiente2);
+        glLightfv(GL_LIGHT2, GL_DIFFUSE, luz_difusa2);
+        glLightfv(GL_LIGHT2, GL_SPECULAR, luz_especular2);
+
+        glPushMatrix();
+        glRotatef(alfa,0,0,1);
+        glLightfv(GL_LIGHT1, GL_POSITION, luz_posicion2);
+        glPopMatrix();
+
         glDisable(GL_LIGHT0);
         glEnable(GL_LIGHT1);
+        glEnable(GL_LIGHT2);
 }
 
 
@@ -173,7 +187,7 @@ void draw(void)
 {
 clean_window();
 change_observer();
-luces();
+luces(alfa);
 draw_axis();
 draw_objects();
 glutSwapBuffers();
