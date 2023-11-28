@@ -53,7 +53,7 @@ _triangulos3D::_triangulos3D()
   ambiente = _vertex4f(1.0, 0.8, 0.0, 1.0);
   difuso = _vertex4f(1.0, 0.8, 0.0, 1.0);
   especular = _vertex4f(0.5, 0.5, 0.5, 1.0);
-  brillo = 10;
+  brillo = 80;
 
 }
 
@@ -1096,15 +1096,14 @@ for (j=0;j<num;j++)
 // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-//Aplicamos los colores con estilo ajedrez a las caras
-// colors_chess(0.5, 0.5, 0.8, 0.5, 0.8, 0.5);
-colors_diffuse_flat(0.9, 0.9, 1.0, 0, 6, 6);
-colors_diffuse_gouraud(0.9, 0.9, 1.0, 20, 20, 20);
+
+colors_diffuse_flat(0.9, 0.9, 1.0, -20, 20, 20);
+colors_diffuse_gouraud(0.9, 0.9, 1.0, -20, 20, 20);
 
 ambiente = _vertex4f(0.9, 0.9, 0.9, 1.0);
 difuso = _vertex4f(0.9, 0.9, 0.9, 1.0);
 especular = _vertex4f(0.9, 0.9, 0.9, 1.0);
-brillo = 100;
+brillo = 80;
 }
 
 //************************************************************************
@@ -1116,17 +1115,8 @@ _cabina::_cabina()
 ancho=0.3;
 alto=1.1;
 fondo=0.3;
-// cilindro.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-// cilindro.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
-// cilindro.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
 
-// cilindro.ambiente = _vertex4f(0.3, 0.0, 0.0, 1.0);
-// cilindro.difuso = _vertex4f(0.3, 0.0, 0.0, 1.0);
-// cilindro.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-// cilindro.brillo = 80;
-
-cuerpo_avion.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-cuerpo_avion.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
+cuerpo_avion.colors_diffuse_flat(0.9, 0.2, 0.2, -20, 20, 20);
 cuerpo_avion.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
 
 cuerpo_avion.ambiente = _vertex4f(0.3, 0.0, 0.0, 1.0);
@@ -1164,13 +1154,13 @@ fondo_s = 0.05;
 calcular_normales_caras();
 calcular_normales_vertices();
 // cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 20, 20, 20);
 cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 
-cubo.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
-cubo.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo.ambiente = _vertex4f(0.4, 0.4, 0.4, 1.0);
+cubo.difuso = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cubo.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-cubo.brillo = 80;
+cubo.brillo = 100;
 };
 
 
@@ -1229,15 +1219,15 @@ fondo=0.7;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-cubo_m.colors_chess(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
-cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, -20, 20, 20);
+cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, -20, 20, 20);
 
-cubo_m.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
-cubo_m.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo_m.ambiente = _vertex4f(0.4, 0.4, 0.4, 1.0);
+cubo_m.difuso = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cubo_m.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-cubo_m.brillo = 80;
+cubo_m.brillo = 100;
+
 
 };
 
@@ -1328,21 +1318,21 @@ calcular_normales_vertices();
 cubo.colors_chess(0.0,0.0,0.0,0.0,0.0,0.0);
 esfera.colors_chess(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
 
-cubo.colors_diffuse_flat(0.2, 0.2, 0.2, 0, 6, 6);
+cubo.colors_diffuse_flat(0.2, 0.2, 0.2, 20, 20, 20);
 cubo.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
-esfera.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+esfera.colors_diffuse_flat(0.9, 0.9, 0.9, 20, 20, 20);
 esfera.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 
 cubo.ambiente = _vertex4f(0.0, 0.0, 0.0, 1.0);
 cubo.difuso = _vertex4f(0.0, 0.0, 0.0, 1.0);
 cubo.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-cubo.brillo = 100;
+cubo.brillo = 80;
 
 esfera.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
 esfera.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
 esfera.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-esfera.brillo = 100;
+esfera.brillo = 80;
 };
 
 void _helice::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1384,24 +1374,22 @@ radio_p=0.001;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-rueda.colors_chess(0.2,0.2,0.2,0.0,0.0,0.0);
-cilindro.colors_chess(0.5,0.5,0.5,0.5,0.5,0.5);
 
-rueda.colors_diffuse_flat(0.2, 0.2, 0.2, 0, 6, 6);
+rueda.colors_diffuse_flat(0.2, 0.2, 0.2, 20, 20, 20);
 rueda.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
-cilindro.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
+cilindro.colors_diffuse_flat(0.9, 0.9, 0.9, 20, 20, 20);
 cilindro.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 
-cilindro.ambiente = _vertex4f(0.7, 0.7, 0.7, 1.0);
-cilindro.difuso = _vertex4f(0.7, 0.7, 0.7, 1.0);
+cilindro.ambiente = _vertex4f(0.4, 0.4, 0.4, 1.0);
+cilindro.difuso = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cilindro.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-cilindro.brillo = 100;
+cilindro.brillo = 80;
 
 rueda.ambiente = _vertex4f(0.0, 0.0, 0.0, 1.0);
 rueda.difuso = _vertex4f(0.0, 0.0, 0.0, 1.0);
 rueda.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-rueda.brillo = 100;
+rueda.brillo = 80;
 };
 
 void _sustentacion::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1463,13 +1451,13 @@ calcular_normales_caras();
 calcular_normales_vertices();
 conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
 
-conoTrun.colors_diffuse_flat(0.0, 0.4, 0.0, 0, 6, 6);
-conoTrun.colors_diffuse_gouraud(0.0, 0.4, 0.0, 0, 6, 6);
+conoTrun.colors_diffuse_flat(0.0, 0.2, 0.0, 20, 20, 20);
+conoTrun.colors_diffuse_gouraud(0.0, 0.2, 0.0, 20, 20, 20);
 
 conoTrun.ambiente = _vertex4f(0.1, 0.3, 0.1, 1.0);
 conoTrun.difuso = _vertex4f(0.1, 0.3, 0.1, 1.0);
 conoTrun.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
-conoTrun.brillo = 100;
+conoTrun.brillo = 80;
 
 };
 
