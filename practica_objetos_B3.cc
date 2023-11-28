@@ -13,7 +13,7 @@
 using namespace std;
 
 // tipos
-typedef enum{CUBO, PIRAMIDE, CUBO_M, OBJETO_PLY, ROTACION, CILINDRO, CONO, CONOTRUN, ESFERA, EXTRUSION, AVIONETA, OBJETILLO, MONTANA} _tipo_objeto;
+typedef enum{CUBO, PIRAMIDE, CUBO_M, OBJETO_PLY, ROTACION, CILINDRO, CONO, CONOTRUN, CUERPOAVION, ESFERA, EXTRUSION, AVIONETA, OBJETILLO, MONTANA} _tipo_objeto;
 _tipo_objeto t_objeto=CUBO;
 _modo   modo=POINTS;
 
@@ -38,6 +38,7 @@ _rotacion rotacion;
 _cilindro cilindro(1,2,50); 
 _cono cono(1,2,50);
 _conoTrun conoTrun(1,2,50);
+_cuerpo_avion cuerpo_avion(1,2,50);
 _esfera esfera(1,50,50);
 _avioneta avioneta;
 _extrusion *extrusion;
@@ -136,6 +137,7 @@ switch (t_objeto){
         case CILINDRO: cilindro.draw(modo,1.0,0.0,0.0,5);break;
         case CONO: cono.draw(modo,1.0,0.0,0.0,5);break;
         case CONOTRUN: conoTrun.draw(modo,1.0,0.0,0.0,5);break;
+        case CUERPOAVION: cuerpo_avion.draw(modo,1.0,0.0,0.0,5);break;
         case ESFERA: esfera.draw(modo,1.0,0.0,0.0,5);break;
         case AVIONETA: avioneta.draw(modo,1.0,0.0,0.0,5);break;
         case EXTRUSION: extrusion->draw(modo,1.0,0.0,0.0,5);break;
@@ -149,13 +151,13 @@ switch (t_objeto){
 // Luces
 //***************************************************************************
 void luces(float alfa){
-        GLfloat luz_ambiente[] = {0.2, 0.2, 0.2, 1.0},
-                luz_difusa[] = {1.0, 1.0, 1.0, 1.0},
-                luz_especular[] = {20, 20, 20, 1.0},
-                luz_posicion[] = {10,10,10,10,10};
+        GLfloat luz_ambiente[] = {0.5, 0.5, 0.7, 1.0},
+                luz_difusa[] = {0.5, 0.5, 0.7, 1.0},
+                luz_especular[] = {10, 10, 10, 1.0},
+                luz_posicion[] = {0,10,10,10,10};
         
         GLfloat luz_ambiente2[] = {0.05, 0.05, 0.05, 1.0},
-                luz_difusa2[] = {0.0, 1.0, 0.0, 1.0},
+                luz_difusa2[] = {0.0, 0.0, 0.0, 1.0},
                 luz_especular2[] = {0.0, 1.0, 0.0, 1.0},
                 luz_posicion2[] = {10,10,10,10,10}; 
 
@@ -242,6 +244,7 @@ switch (toupper(Tecla1)){
         case 'L':t_objeto=CILINDRO;break;
         case 'N':t_objeto=CONO;break;
         case 'T':t_objeto=CONOTRUN;break;
+        case 'S':t_objeto=CUERPOAVION;break;
         case 'E':t_objeto=ESFERA;break;
         case 'A':t_objeto=AVIONETA;break; 
         case 'X':t_objeto=EXTRUSION;break;

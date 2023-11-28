@@ -805,6 +805,25 @@ parametros(perfil,num,1,1,0);
 }
 
 //************************************************************************
+// objeto cuerpo_avion (caso especial de rotacion)
+//************************************************************************
+
+_cuerpo_avion::_cuerpo_avion(float radio, float altura, int num)
+{
+vector<_vertex3f> perfil;
+_vertex3f aux;
+
+aux.x= radio/3; aux.y = -altura/2.0 - altura/1.2; aux.z=0.0;
+perfil.push_back(aux);
+aux.x=radio; aux.y=-altura/2.0; aux.z=0.0;
+perfil.push_back(aux);
+aux.x=radio; aux.y=altura/2.0; aux.z=0.0;
+perfil.push_back(aux);
+
+parametros(perfil,num,1,1,0);
+}
+
+//************************************************************************
 // objeto esfera (caso especial de rotacion)
 //************************************************************************
 
@@ -1078,9 +1097,14 @@ for (j=0;j<num;j++)
 calcular_normales_caras();
 calcular_normales_vertices();
 //Aplicamos los colores con estilo ajedrez a las caras
-colors_chess(0.5, 0.5, 0.8, 0.5, 0.8, 0.5);
+// colors_chess(0.5, 0.5, 0.8, 0.5, 0.8, 0.5);
 colors_diffuse_flat(0.9, 0.9, 1.0, 0, 6, 6);
 colors_diffuse_gouraud(0.9, 0.9, 1.0, 20, 20, 20);
+
+ambiente = _vertex4f(0.9, 0.9, 0.9, 1.0);
+difuso = _vertex4f(0.9, 0.9, 0.9, 1.0);
+especular = _vertex4f(0.9, 0.9, 0.9, 1.0);
+brillo = 100;
 }
 
 //************************************************************************
@@ -1092,10 +1116,23 @@ _cabina::_cabina()
 ancho=0.3;
 alto=1.1;
 fondo=0.3;
-cilindro.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-cilindro.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
-cilindro.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
+// cilindro.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+// cilindro.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
+// cilindro.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
 
+// cilindro.ambiente = _vertex4f(0.3, 0.0, 0.0, 1.0);
+// cilindro.difuso = _vertex4f(0.3, 0.0, 0.0, 1.0);
+// cilindro.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+// cilindro.brillo = 80;
+
+cuerpo_avion.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+cuerpo_avion.colors_diffuse_flat(0.9, 0.2, 0.2, 0, 6, 6);
+cuerpo_avion.colors_diffuse_gouraud(0.9, 0.2, 0.2, -20, 20, 20);
+
+cuerpo_avion.ambiente = _vertex4f(0.3, 0.0, 0.0, 1.0);
+cuerpo_avion.difuso = _vertex4f(0.3, 0.0, 0.0, 1.0);
+cuerpo_avion.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+cuerpo_avion.brillo = 80;
 };
 
 void _cabina::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1104,7 +1141,8 @@ glPushMatrix();
 glRotatef(-90,0,0,1);
 glTranslatef(-0.5,0.0,0.0);
 glScalef(ancho, alto, fondo);
-cilindro.draw(modo, r, g, b, grosor);
+// cilindro.draw(modo, r, g, b, grosor);
+cuerpo_avion.draw(modo, r, g, b, grosor);
 glPopMatrix();
 };
 
@@ -1125,9 +1163,14 @@ fondo_s = 0.05;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+// cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
 cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+cubo.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+cubo.brillo = 80;
 };
 
 
@@ -1186,14 +1229,15 @@ fondo=0.7;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-// cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 cubo_m.colors_chess(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-// cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
-// cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
 
 cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
 cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+cubo_m.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo_m.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
+cubo_m.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+cubo_m.brillo = 80;
 
 };
 
@@ -1239,22 +1283,20 @@ fondo=0.3;
 // // normales de las caras y vértices
 calcular_normales_caras();
 calcular_normales_vertices();
-conoTrun.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+
 
 conoTrun.colors_diffuse_flat(0.9, 0.2, 0.2, 0, -6, 6);
 conoTrun.colors_diffuse_gouraud(0.9, 0.2, 0.2, 20, 20,20);
+
+conoTrun.ambiente = _vertex4f(0.0, 0.0, 0.0, 1.0);
+conoTrun.difuso = _vertex4f(0.0, 0.0, 0.0, 1.0);
+conoTrun.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+conoTrun.brillo = 80;
 
 };
 
 void _punta::draw(_modo modo, float r, float g, float b, float grosor)
 {
-// glPushMatrix();
-// glRotatef(-90,0,0,1);
-// glTranslatef(-0.5,1.3,0);
-// glScalef(ancho, alto - 0.1, fondo);
-// conoTrun.draw(modo, r, g, b, grosor);
-// glPopMatrix();
-
 glPushMatrix();
 glRotatef(90,0,0,1);
 glTranslatef(0.5,2,0);
@@ -1289,6 +1331,16 @@ cubo.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
 esfera.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
 esfera.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+cubo.ambiente = _vertex4f(0.0, 0.0, 0.0, 1.0);
+cubo.difuso = _vertex4f(0.0, 0.0, 0.0, 1.0);
+cubo.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+cubo.brillo = 100;
+
+esfera.ambiente = _vertex4f(0.3, 0.3, 0.3, 1.0);
+esfera.difuso = _vertex4f(0.3, 0.3, 0.3, 1.0);
+esfera.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+esfera.brillo = 100;
 };
 
 void _helice::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1338,6 +1390,16 @@ rueda.colors_diffuse_gouraud(0.2, 0.2, 0.2, 20, 20, 20);
 
 cilindro.colors_diffuse_flat(0.9, 0.9, 0.9, 0, 6, 6);
 cilindro.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+cilindro.ambiente = _vertex4f(0.7, 0.7, 0.7, 1.0);
+cilindro.difuso = _vertex4f(0.7, 0.7, 0.7, 1.0);
+cilindro.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+cilindro.brillo = 100;
+
+rueda.ambiente = _vertex4f(0.0, 0.0, 0.0, 1.0);
+rueda.difuso = _vertex4f(0.0, 0.0, 0.0, 1.0);
+rueda.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+rueda.brillo = 100;
 };
 
 void _sustentacion::draw(_modo modo, float r, float g, float b, float grosor)
@@ -1401,6 +1463,11 @@ conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
 
 conoTrun.colors_diffuse_flat(0.0, 0.4, 0.0, 0, 6, 6);
 conoTrun.colors_diffuse_gouraud(0.0, 0.4, 0.0, 0, 6, 6);
+
+conoTrun.ambiente = _vertex4f(0.1, 0.3, 0.1, 1.0);
+conoTrun.difuso = _vertex4f(0.1, 0.3, 0.1, 1.0);
+conoTrun.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
+conoTrun.brillo = 100;
 
 };
 
@@ -1489,8 +1556,8 @@ glRotatef(giro_helice,1,0,0); // Rotación de las hélices
 helice.draw(modo, r, g, b, grosor);
 glPopMatrix();
 
-// Parte trasera de la avioneta
-punta.draw(modo, r, g, b, grosor);
+// // Parte trasera de la avioneta
+// punta.draw(modo, r, g, b, grosor);
 
 // Alerones
 colitas.draw(modo, r, g, b, grosor);
