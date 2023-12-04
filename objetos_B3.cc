@@ -230,6 +230,26 @@ switch (modo){
 }
 
 
+//*************************************************************************
+// Dibujar con texturas
+//*************************************************************************
+
+void _triangulos3D::draw_solido_textura(){
+  int i;
+  glEnable(GL_TEXTURE_2D);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+  glBegin(GL_TRIANGLES);
+  for (i = 0; i < caras.size(); i++){
+    glTexCoord2f(texturas_vertices[caras[i]._0].x, texturas_vertices[caras[i]._0].y);
+    glVertex3fv((GLfloat *)&vertices[caras[i]._0]);
+    glTexCoord2f(texturas_vertices[caras[i]._1].x, texturas_vertices[caras[i]._1].y);
+    glVertex3fv((GLfloat *)&vertices[caras[i]._1]);
+    glTexCoord2f(texturas_vertices[caras[i]._2].x, texturas_vertices[caras[i]._2].y);
+    glVertex3fv((GLfloat *)&vertices[caras[i]._2]);
+  }
+}
+
 
 //*************************************************************************
 // Calculo de normales de caras
@@ -454,10 +474,78 @@ caras[11]._0=1;caras[11]._1=5;caras[11]._2=4;
   // colores de las caras
   colors_random();
   // colores
-  colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_flat(0.8, 0.2, 0.2, 20, 20, 20);
   colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
+
+//*************************************************************************
+// clase cubo con textura
+//*************************************************************************
+
+_cubo_tex::_cubo_tex(float tam){
+  //vertices
+  vertices.resize(14);
+  vertices[0].x=-tam;vertices[0].y=-tam;vertices[0].z=tam;
+  vertices[1].x=tam;vertices[1].y=-tam;vertices[1].z=tam;
+  vertices[2].x=tam;vertices[2].y=tam;vertices[2].z=tam;
+  vertices[3].x=-tam;vertices[3].y=tam;vertices[3].z=tam;
+  vertices[4].x=-tam;vertices[4].y=-tam;vertices[4].z=-tam;
+  vertices[5].x=tam;vertices[5].y=-tam;vertices[5].z=-tam;
+  vertices[6].x=tam;vertices[6].y=tam;vertices[6].z=-tam;
+  vertices[7].x=-tam;vertices[7].y=tam;vertices[7].z=-tam;
+  vertices[8].x=-tam;vertices[8].y=-tam;vertices[8].z=tam;
+  vertices[9].x=-tam;vertices[9].y=tam;vertices[9].z=tam;
+  vertices[10].x=-tam;vertices[10].y=-tam;vertices[10].z=tam;
+  vertices[11].x=-tam;vertices[11].y=-tam;vertices[11].z=-tam;
+  vertices[12].x=tam;vertices[12].y=-tam;vertices[12].z=-tam;
+  vertices[13].x=tam;vertices[13].y=-tam;vertices[13].z=tam;
+
+  //caras
+  caras.resize(12);
+  caras[0]._0=8;caras[0]._1=9;caras[0]._2=1;
+  caras[1]._0=8;caras[1]._1=1;caras[1]._2=0;
+  caras[2]._0=9;caras[2]._1=10;caras[2]._2=4;
+  caras[3]._0=9;caras[3]._1=4;caras[3]._2=1;
+  caras[4]._0=10;caras[4]._1=11;caras[4]._2=5;
+  caras[5]._0=10;caras[5]._1=5;caras[5]._2=4;
+  caras[6]._0=11;caras[6]._1=12;caras[6]._2=6;
+  caras[7]._0=11;caras[7]._1=6;caras[7]._2=5;
+  caras[8]._0=12;caras[8]._1=13;caras[8]._2=2;
+  caras[9]._0=12;caras[9]._1=2;caras[9]._2=6;
+  caras[10]._0=13;caras[10]._1=8;caras[10]._2=0;
+  caras[11]._0=13;caras[11]._1=0;caras[11]._2=2;
+
+  //texturas
+  texturas_vertices.resize(14);
+  texturas_vertices[0].x=0.0; texturas_vertices[0].y=0.5;
+  texturas_vertices[1].x=0.25; texturas_vertices[1].y=0.5;
+  texturas_vertices[2].x=0.5; texturas_vertices[2].y=0.5;
+  texturas_vertices[3].x=0.75; texturas_vertices[3].y=0.5;
+  texturas_vertices[4].x=1.0; texturas_vertices[4].y=0.5;
+  texturas_vertices[5].x=0.0; texturas_vertices[5].y=0.0;
+  texturas_vertices[6].x=0.25; texturas_vertices[6].y=0.0;
+  texturas_vertices[7].x=0.5; texturas_vertices[7].y=0.0;
+  texturas_vertices[8].x=0.75; texturas_vertices[8].y=0.0;
+  texturas_vertices[9].x=1.0; texturas_vertices[9].y=0.0;
+  texturas_vertices[10].x=0.0; texturas_vertices[10].y=1.0;
+  texturas_vertices[11].x=0.25; texturas_vertices[11].y=1.0;
+  texturas_vertices[12].x=0.5; texturas_vertices[12].y=1.0;
+  texturas_vertices[13].x=0.75; texturas_vertices[13].y=1.0;
+  
+
+
+  // normales de las caras
+  calcular_normales_caras();
+  calcular_normales_vertices();
+
+  // colores de las caras
+  colors_random();
+  // colores
+  colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
+
+}
 
 //*************************************************************************
 // clase piramide
@@ -528,8 +616,8 @@ caras[7]._0 = 0; caras[7]._1 = 5; caras[7]._2 = 2; // Cara derecha
   // colores de las caras
   colors_random();
   // colores
-  colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
-  colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
+  colors_diffuse_flat(0.8, 0.2, 0.2, -20, 20, 20);
+  colors_diffuse_gouraud(0.8, 0.2, 0.2, -20, 20, 20);
 }
 
 //*************************************************************************
@@ -749,7 +837,7 @@ for (i=0;i<num_aux;i++)
   // colores de las caras
   colors_random();
   // colores
-  colors_diffuse_flat(0.8, 0.9, 0.2, 0, 6, 6);
+  colors_diffuse_flat(0.8, 0.2, 0.2, 20, 20, 20);
   colors_diffuse_gouraud(0.8, 0.2, 0.2, 20, 20, 20);
 }
 
@@ -1151,16 +1239,15 @@ alto_s = 0.75;
 fondo_s = 0.05;
 
 // // normales de las caras y vértices
-calcular_normales_caras();
-calcular_normales_vertices();
-// cubo.colors_chess(1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-cubo.colors_diffuse_flat(0.9, 0.9, 0.9, 20, 20, 20);
-cubo.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+// calcular_normales_caras();
+// calcular_normales_vertices();
 
 cubo.ambiente = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cubo.difuso = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cubo.especular = _vertex4f(0.2, 0.2, 0.2, 1.0);
 cubo.brillo = 100;
+
+
 };
 
 
@@ -1217,11 +1304,11 @@ alto=0.08;
 fondo=0.7;
 
 // // normales de las caras y vértices
-calcular_normales_caras();
-calcular_normales_vertices();
+// calcular_normales_caras();
+// calcular_normales_vertices();
 
-cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, -20, 20, 20);
-cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, -20, 20, 20);
+// cubo_m.colors_diffuse_flat(0.9, 0.9, 0.9, -20, 20, 20);
+// cubo_m.colors_diffuse_gouraud(0.9, 0.9, 0.9, -20, 20, 20);
 
 cubo_m.ambiente = _vertex4f(0.4, 0.4, 0.4, 1.0);
 cubo_m.difuso = _vertex4f(0.4, 0.4, 0.4, 1.0);
@@ -1356,6 +1443,33 @@ glPopMatrix();
 };
 
 
+// //************************************************************************
+// // Montaña avion
+// //************************************************************************
+
+// _montana_av::_montana_av(int nivelmax, float sigma, float h)
+// {
+//   ancho=0.3;
+//   alto=0.3;
+//   fondo=0.3;
+
+//   // // normales de las caras y vértices
+//   calcular_normales_caras();
+//   calcular_normales_vertices();
+
+//   montana.colors_diffuse_flat(0.9, 0.9, 0.9, 20, 20, 20);
+//   montana.colors_diffuse_gouraud(0.9, 0.9, 0.9, 20, 20, 20);
+
+// }
+
+// void _montana_av::draw(_modo modo, float r, float g, float b, float grosor)
+// {
+//   glPushMatrix();
+//   glScalef(ancho, alto, fondo);
+//   montana.draw(modo, r, g, b, grosor);
+//   glPopMatrix();
+// };
+
 //************************************************************************
 // sustentación
 //************************************************************************
@@ -1447,12 +1561,12 @@ alto=0.15;
 fondo=0.08;
 
 // // normales de las caras y vértices
-calcular_normales_caras();
-calcular_normales_vertices();
-conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
+// calcular_normales_caras();
+// calcular_normales_vertices();
+// conoTrun.colors_chess(0.0, 0.2, 0.0, 0.0, 0.2, 0.0);
 
 conoTrun.colors_diffuse_flat(0.0, 0.2, 0.0, 20, 20, 20);
-conoTrun.colors_diffuse_gouraud(0.0, 0.2, 0.0, 20, 20, 20);
+// conoTrun.colors_diffuse_gouraud(0.0, 0.2, 0.0, 20, 20, 20);
 
 conoTrun.ambiente = _vertex4f(0.1, 0.3, 0.1, 1.0);
 conoTrun.difuso = _vertex4f(0.1, 0.3, 0.1, 1.0);
@@ -1557,6 +1671,8 @@ cabina.draw(modo, r, g, b, grosor);
 
 // Alas
 ala.draw(modo, r, g, b, grosor);
+
+// montana_av.draw(modo, r, g, b, grosor);
 
 // Ventanilla
 glPushMatrix();

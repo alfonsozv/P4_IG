@@ -16,7 +16,8 @@ typedef enum{
        SOLID_COLORS, 
        SOLID_COLORS_GOURAUD, 
        SOLID_PHONG_FLAT, 
-       SOLID_PHONG_GOURAUD
+       SOLID_PHONG_GOURAUD,
+       SOLID_TEXTURE
 } _modo;
 //No se puede hacer el suavizado de phong
 
@@ -51,6 +52,7 @@ public:
        void   draw_solido_colores_vertices();
        void   draw_solido_brillo_plano();
        void   draw_solido_brillo_suave();
+       void   draw_solido_textura();
        void 	draw(_modo modo, float r, float g, float b, float grosor);
 
        /* asignación de colores */
@@ -68,6 +70,8 @@ public:
        vector<_vertex3f> colores_vertices;
        vector<_vertex3f> normales_vertices;
        vector<_vertex3f> normales_caras;
+
+       vector<_vertex2f> texturas_vertices;
 
        int calculadas_normales_caras;
 
@@ -94,6 +98,16 @@ public:
 	_cubo(float tam=0.5);
 };
 
+//*************************************************************************
+// clase cubo con textura
+//*************************************************************************
+
+class _cubo_tex: public _triangulos3D
+{
+public:
+
+       _cubo_tex(float tam=0.5);
+};
 
 //*************************************************************************
 // clase piramide
@@ -455,6 +469,7 @@ float giro_avioneta;
 
 
 protected:
+// _montana_av montana_av;
 _ventanilla ventanilla;
 _ala ala;
 _cabina cabina;
@@ -463,4 +478,5 @@ _punta punta;
 _helice helice;
 _sustentacion sustentacion;
 _proyectiles proyectiles;
+
 };

@@ -151,38 +151,15 @@ switch (t_objeto){
 // Luces
 //***************************************************************************
 void luces(float alfa){
-        // GLfloat luz_ambiente[] = {0.4, 0.4, 0.4, 1.0},
-        //         luz_difusa[] = {0.4, 0.4, 0.4, 1.0},
-        //         luz_especular[] = {0.5, 0.5, 0.5, 1.0},
-        //         luz_posicion[] = {10, 10, 20, 1.0};
-        
-        // GLfloat luz_ambiente2[] = {0.7, 0.7, 0.7, 1.0},
-        //         luz_difusa2[] = {0.7, 0.7, 0.7, 1.0},
-        //         luz_especular2[] = {0.5, 0.5, 0.5, 1.0},
-        //         luz_posicion2[] = {10, 10, 20, 1.0};
-
-        // glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente);
-        // glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
-        // glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
-        // glLightfv(GL_LIGHT1, GL_POSITION, luz_posicion);
-
-        // glLightfv(GL_LIGHT2, GL_AMBIENT, luz_ambiente2);
-        // glLightfv(GL_LIGHT2, GL_DIFFUSE, luz_difusa2);
-        // glLightfv(GL_LIGHT2, GL_SPECULAR, luz_especular2);
-        // glLightfv(GL_LIGHT1, GL_POSITION, luz_posicion2);
-
-        // glDisable(GL_LIGHT0);
-        // glEnable(GL_LIGHT1);
-        // glEnable(GL_LIGHT2);
         GLfloat luz_ambiente1[] = {0.2, 0.2, 0.2, 1.0},
             luz_difusa1[] = {1.0, 1.0, 1.0, 1.0},
             luz_especular1[] = {0.5, 0.5,0.5, 1.0},
-            luz_posicion1[] = {10, 10, 20, 1.0};
+            luz_posicion1[] = {10, 10, 10, 1.0};
 
-        GLfloat luz_ambiente2[] = {0.2, 0.2, 0.2, 1.0},
-            luz_difusa2[] = {0.3, 0.3, 0.3, 1.0},
+        GLfloat luz_ambiente2[] = {0.2, 0.2, 0.6, 1.0},
+            luz_difusa2[] = {0.3, 0.3, 0.7, 1.0},
             luz_especular2[] = {0.5, 0.5, 0.5, 1.0},
-            luz_posicion2[] = {10, 10, 20, 1.0};
+            luz_posicion2[] = {-10, -10, -10, 1.0};
 
         glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente1);
         glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa1);
@@ -606,7 +583,7 @@ Observer_angle_y=-25;
 
 // se indica el color para limpiar la ventana	(r,v,a,al)
 // blanco=(1,1,1,1) rojo=(1,0,0,1), ...
-glClearColor(0.84, 0.92, 1.0, 1);
+glClearColor(0.3, 0.3, 1.0, 0.0);
 
 // se habilita el z-bufer
 glEnable(GL_DEPTH_TEST);
